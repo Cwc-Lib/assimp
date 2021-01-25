@@ -12,17 +12,32 @@
 -I ../contrib/pugixml/src/
 -I ../contrib/rapidjson/include/
 -I ../contrib/unzip/
+-I ../contrib/openddlparser/include/
 >
 -{pObj}= "obj/{_sPlatform}_{_sOpt}/"
 -{pOut}="_out/{_sPlatform}_{_sOpt}/"
 >
-;Build
+;Build assimp core
 -c ../code/ -o {pObj}
 -{vIncl}
 -{vFlag}
 >
-;Generate executable
-;-o {pObj} -#To {pOut}BCMconvert.exe 
-;-lc -lc -lpad -lkernel
+;Build contrib unzip
+-c ../contrib/unzip/ -o {pObj}unzip/
 >
-;g++ main.cpp load.cpp bcm.cpp -lassimp -o Bin/BCMconvert
+;Build contrib zip
+-c ../contrib/zip/src/ -o {pObj}zip/
+>
+;Build contrib openddlparser
+-c ../contrib/openddlparser/code/ -o {pObj}openddlparser/
+-I ../contrib/openddlparser/include/
+>
+;Build contrib  contrib\poly2tri
+-c ../contrib/poly2tri/ -o {pObj}poly2tri/
+>
+;Generate Dynamic Lib
+-o {pObj} -#To Lib/assimp.dll
+-{vIncl}
+-{vFlag}
+-lz
+>
