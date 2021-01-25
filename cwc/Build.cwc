@@ -38,5 +38,6 @@
 ;Generate Dynamic Lib
 -o {pObj} -#To Lib/assimp.dll
 -{vFlag}
+-Wl,--out-implib,Lib/libassimp-dll.a
 -lz
 >
